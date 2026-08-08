@@ -1,0 +1,20 @@
+class TimeMap:
+
+    def __init__(self):
+        self.hmap = defaultdict(list)
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.hmap[key].append((timestamp, value))
+
+    def get(self, key: str, timestamp: int) -> str:
+        lst = self.hmap[key]
+        res = ""
+        l, r = 0, len(lst) - 1
+        while l <= r:
+            m = l + (r - l) // 2
+            if lst[m][0] <= timestamp:
+                res = lst[m][1]
+                l = m + 1
+            else:
+                r = m - 1
+        return res
